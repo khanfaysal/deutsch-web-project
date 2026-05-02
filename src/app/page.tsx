@@ -21,55 +21,95 @@ export default function Home() {
       <Features />
 
       {/* Level Selection Section */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+      <section className="py-32 max-w-7xl mx-auto px-6 relative">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
+        
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div>
-            <h2 className="text-4xl font-bold mb-4">Choose Your Level</h2>
-            <p className="text-muted-foreground">Not sure where to start? Take our placement test.</p>
+            <p className="text-secondary font-black uppercase tracking-[0.3em] text-xs mb-4">Wähle dein Level</p>
+            <h2 className="text-5xl font-black tracking-tight leading-tight">Identify Your <br /><span className="text-muted-foreground">Fluency Stage</span></h2>
           </div>
-          <button className="text-secondary font-bold flex items-center gap-2 hover:underline">
-            Take Placement Test <ArrowRight size={20} />
+          <button className="px-8 py-4 rounded-2xl bg-white/5 border border-white/10 font-black uppercase tracking-widest text-sm hover:bg-secondary hover:text-white transition-all flex items-center gap-3 group">
+            Placement Test <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
           </button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {levels.map((level) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {levels.map((level, idx) => (
             <Link 
               key={level.id} 
               href={`/lessons/${level.id}`}
-              className="group glass p-6 rounded-2xl flex flex-col items-center text-center hover:bg-secondary hover:text-white transition-all border-white/5"
+              className="group glass p-10 rounded-[2.5rem] flex flex-col hover:bg-white dark:hover:bg-card transition-all duration-500 border-white/5 hover:border-secondary/20 relative overflow-hidden"
             >
-              <span className="text-3xl font-black mb-2 group-hover:scale-125 transition-transform">{level.id}</span>
-              <span className="text-xs font-bold uppercase tracking-wider mb-2">{level.name}</span>
-              <p className="text-[10px] opacity-60 group-hover:opacity-100">{level.desc}</p>
+              <div className="flex justify-between items-start mb-10">
+                <span className="text-6xl font-black group-hover:text-secondary transition-colors duration-500">{level.id}</span>
+                <div className="w-12 h-12 rounded-xl bg-muted flex items-center justify-center group-hover:bg-secondary/10 group-hover:text-secondary transition-all">
+                  <ArrowRight size={24} className="-rotate-45 group-hover:rotate-0 transition-transform duration-500" />
+                </div>
+              </div>
+              <div>
+                <span className="text-xs font-black uppercase tracking-[0.2em] text-secondary mb-2 block">{level.name}</span>
+                <p className="text-muted-foreground font-medium leading-relaxed">{level.desc}</p>
+              </div>
+              
+              {/* Progress Bar (Decorative) */}
+              <div className="mt-8 h-1 w-full bg-muted rounded-full overflow-hidden">
+                <div className="h-full bg-secondary w-0 group-hover:w-full transition-all duration-1000 delay-100" />
+              </div>
             </Link>
           ))}
         </div>
       </section>
 
       {/* Footer CTA */}
-      <section className="py-24 bg-primary text-background text-center px-6">
-        <h2 className="text-5xl font-black mb-8">Ready to start your journey?</h2>
-        <p className="text-xl opacity-80 mb-12 max-w-2xl mx-auto">
-          Join thousands of students who are already mastering German with DeutschFlow.
-        </p>
-        <button className="bg-accent text-primary px-10 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-transform">
-          Get Started for Free
-        </button>
+      <section className="py-40 bg-[#050505] relative overflow-hidden text-center px-6">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--secondary)_0%,_transparent_70%)] opacity-[0.03] pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h2 className="text-6xl md:text-7xl font-black mb-10 tracking-tighter leading-tight">
+             bereit, deine <br /> Reise zu <span className="text-secondary">beginnen?</span>
+          </h2>
+          <p className="text-xl text-muted-foreground mb-16 max-w-2xl mx-auto font-medium leading-relaxed">
+            Join 50,000+ students mastering German through precision engineering and AI-driven immersion.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <Link href="/register" className="bg-secondary text-white px-12 py-6 rounded-2xl font-black uppercase tracking-[0.2em] hover:scale-105 transition-all shadow-[0_20px_50px_-10px_rgba(227,30,36,0.5)]">
+              Jetzt Starten
+            </Link>
+            <Link href="/login" className="px-12 py-6 rounded-2xl bg-white/5 border border-white/10 font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all">
+              Anmelden
+            </Link>
+          </div>
+        </div>
       </section>
 
-      <footer className="py-12 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-black via-red-600 to-yellow-400" />
-            <span className="font-bold">DeutschFlow</span>
+      <footer className="py-20 px-6 border-t border-white/5 bg-[#050505]">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#050505] via-[#e31e24] to-[#ffcf00] p-[1.5px]">
+                <div className="w-full h-full bg-black rounded-[9px] flex items-center justify-center">
+                  <div className="w-4 h-4 bg-white rounded-sm" />
+                </div>
+              </div>
+              <span className="text-2xl font-black tracking-tighter">DEUTSCHFLOW</span>
+            </Link>
+            
+            <div className="flex flex-wrap justify-center gap-10 text-xs font-black uppercase tracking-[0.3em]">
+              <Link href="/lessons" className="hover:text-secondary transition-all">Lessons</Link>
+              <Link href="/vocabulary" className="hover:text-secondary transition-all">Vocabulary</Link>
+              <Link href="/quizzes" className="hover:text-secondary transition-all">Quizzes</Link>
+              <Link href="/dashboard" className="hover:text-secondary transition-all">Dashboard</Link>
+            </div>
           </div>
-          <div className="flex gap-8 text-sm text-muted-foreground">
-            <Link href="#" className="hover:text-primary">Privacy Policy</Link>
-            <Link href="#" className="hover:text-primary">Terms of Service</Link>
-            <Link href="#" className="hover:text-primary">Contact</Link>
+          
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-10 border-t border-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
+            <p>© 2026 DEUTSCHFLOW. ALL RIGHTS RESERVED.</p>
+            <div className="flex gap-10">
+              <Link href="#" className="hover:text-secondary transition-all">Privacy</Link>
+              <Link href="#" className="hover:text-secondary transition-all">Terms</Link>
+              <Link href="#" className="hover:text-secondary transition-all">Cookies</Link>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">© 2026 DeutschFlow. All rights reserved.</p>
         </div>
       </footer>
     </main>

@@ -56,6 +56,37 @@ app.get('/api/lessons', async (req: AuthRequest, res) => {
   }
 });
 
+app.get('/api/lessons/level/:level', async (req: AuthRequest, res) => {
+  try {
+    const { level } = req.params;
+    const lessons = await prisma.lesson.findMany({
+      where: { level: level.toUpperCase() },
+      include: { quizzes: true }
+    });
+
+    const token = req.cookies.token;
+    let userProgress: any[] = [];
+
+    if (token) {
+      try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret') as { userId: string };
+        userProgress = await prisma.progress.findMany({
+          where: { userId: decoded.userId }
+        });
+      } catch (e) {}
+    }
+
+    const lessonsWithProgress = lessons.map(lesson => ({
+      ...lesson,
+      completed: userProgress.some(p => p.lessonId === lesson.id && p.completed)
+    }));
+
+    res.json(lessonsWithProgress);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch lessons by level' });
+  }
+});
+
 app.get('/api/lessons/:id', async (req, res) => {
   try {
     const { id } = req.params;
@@ -104,6 +135,16 @@ app.post('/api/vocabulary', authenticate, authorize(['ADMIN']), async (req, res)
   }
 });
 
+// Quizzes Routes
+app.get('/api/quizzes', async (req, res) => {
+  try {
+    const quizzes = await prisma.quiz.findMany();
+    res.json(quizzes);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch quizzes' });
+  }
+});
+
 // Progress Routes
 app.post('/api/progress', authenticate, async (req: AuthRequest, res) => {
   try {
@@ -119,8 +160,9 @@ app.post('/api/progress', authenticate, async (req: AuthRequest, res) => {
     });
 
     res.json(progress);
-  } catch (error) {
-    res.status(400).json({ error: 'Failed to update progress' });
+  } catch (error: any) {
+    console.error('Progress update error:', error);
+    res.status(400).json({ error: 'Failed to update progress', details: error.message || String(error) });
   }
 });
 

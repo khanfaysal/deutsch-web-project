@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { UserPlus, Mail, Lock, User, Loader2, AlertCircle } from 'lucide-react';
+import { UserPlus, Mail, Lock, User, Loader2, AlertCircle, Eye, EyeOff } from 'lucide-react';
 
 const registerSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -21,6 +21,7 @@ export default function RegisterPage() {
   const { register: signup } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { register, handleSubmit, formState: { errors } } = useForm<RegisterForm>({
     resolver: zodResolver(registerSchema),
@@ -97,10 +98,17 @@ export default function RegisterPage() {
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
                 <input 
                   {...register('password')}
-                  type="password" 
+                  type={showPassword ? "text" : "password"} 
                   placeholder="••••••••"
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl bg-muted/50 border border-border focus:ring-2 focus:ring-secondary outline-none transition-all"
+                  className="w-full pl-12 pr-12 py-4 rounded-2xl bg-muted/50 border border-border focus:ring-2 focus:ring-secondary outline-none transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-white transition-colors"
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
               </div>
               {errors.password && <p className="mt-1 text-xs text-red-500">{errors.password.message}</p>}
             </div>

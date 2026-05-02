@@ -3,104 +3,125 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, BookOpen, GraduationCap } from 'lucide-react';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center justify-center pt-32 pb-20 overflow-hidden bg-[#050505] text-white">
       {/* Background Blobs */}
-      <div className="absolute top-1/4 -left-20 w-72 h-72 bg-secondary/20 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[150px] animate-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-accent/5 rounded-full blur-[150px] animate-pulse" />
 
-      <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center relative z-10">
         <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-sm font-bold mb-6">
-            <GraduationCap size={16} />
-            <span>Master German from A1 to C2</span>
-          </div>
-          <h1 className="text-6xl md:text-7xl font-black leading-tight mb-6">
-            Sprich Deutsch <br />
-            <span className="text-gradient">wie ein Profi.</span>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-secondary/10 border border-secondary/20 text-secondary text-sm font-black uppercase tracking-[0.2em] mb-8"
+          >
+            <GraduationCap size={18} />
+            <span>Exzellenz in der Bildung</span>
+          </motion.div>
+          
+          <h1 className="text-7xl md:text-8xl font-black leading-[0.95] mb-8 tracking-tighter">
+            SPRICH <br />
+            DEUTSCH <br />
+            <span className="text-secondary italic">PERFEKT.</span>
           </h1>
-          <p className="text-lg text-muted-foreground mb-8 max-w-lg">
-            Experience the future of language learning. Interactive lessons, AI-powered conversations, and gamified progress tracking.
+          
+          <p className="text-xl text-muted-foreground mb-12 max-w-lg leading-relaxed font-medium">
+            Master German with precision. Our engineering-led approach combines interactive immersion with AI-powered fluency training.
           </p>
 
-          <div className="flex flex-wrap gap-4">
-            <button className="bg-primary text-background px-8 py-4 rounded-2xl font-bold flex items-center gap-2 hover:scale-105 transition-transform group">
-              Start Learning Free
-              <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="flex items-center gap-3 px-8 py-4 rounded-2xl font-bold hover:bg-muted transition-colors border border-border">
-              <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-                <Play size={20} fill="currentColor" />
+          <div className="flex flex-wrap gap-6">
+            <Link href="/register" className="bg-secondary text-white px-10 py-5 rounded-2xl font-black uppercase tracking-widest flex items-center gap-3 hover:scale-105 transition-all shadow-2xl shadow-secondary/30 group">
+              Start Now
+              <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+            </Link>
+            <button className="flex items-center gap-4 px-10 py-5 rounded-2xl font-black uppercase tracking-widest hover:bg-white/5 transition-all border border-white/10 group">
+              <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all">
+                <Play size={24} fill="currentColor" />
               </div>
-              Watch Demo
+              Demo
             </button>
           </div>
 
-          <div className="mt-12 flex items-center gap-8 grayscale opacity-50">
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">50k+</span>
-              <span className="text-sm">Active Students</span>
+          <div className="mt-16 flex items-center gap-12 border-t border-white/5 pt-12">
+            <div>
+              <p className="text-4xl font-black text-white">50K+</p>
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mt-1">Students</p>
             </div>
-            <div className="w-px h-8 bg-border" />
-            <div className="flex items-center gap-2">
-              <span className="text-2xl font-bold">4.9/5</span>
-              <span className="text-sm">User Rating</span>
+            <div className="w-px h-12 bg-white/10" />
+            <div>
+              <p className="text-4xl font-black text-white">4.9</p>
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mt-1">Rating</p>
+            </div>
+            <div className="w-px h-12 bg-white/10" />
+            <div className="flex -space-x-4">
+              {[1, 2, 3, 4].map(i => (
+                <div key={i} className="w-12 h-12 rounded-full border-4 border-background bg-muted overflow-hidden">
+                  <img src={`https://i.pravatar.cc/150?u=user${i}`} alt="user" className="w-full h-full object-cover" />
+                </div>
+              ))}
             </div>
           </div>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative"
+          initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          className="relative perspective-1000"
         >
-          <div className="relative z-10 rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-             <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent z-10" />
+          <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(227,30,36,0.3)] border border-white/10 aspect-[4/5] md:aspect-auto">
+             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10 opacity-60" />
              <img 
-               src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=2070&auto=format&fit=crop" 
-               alt="Berlin Architecture" 
-               className="w-full h-[600px] object-cover"
+               src="/hero-german.png" 
+               alt="DeutschFlow Experience" 
+               className="w-full h-full object-cover"
              />
           </div>
 
-          {/* Floating Cards */}
+          {/* Floating Element: Word of the Day */}
           <motion.div 
             animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-6 -right-6 glass p-6 rounded-2xl shadow-xl z-20 max-w-[200px]"
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-10 -left-10 glass p-8 rounded-[2rem] shadow-2xl z-20 border-secondary/20"
           >
-             <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center text-accent">
-                  <BookOpen size={18} />
-                </div>
-                <span className="font-bold">Vocabulary</span>
-             </div>
-             <p className="text-xs text-muted-foreground">Learn 10 new words today to reach your daily goal!</p>
-          </motion.div>
-
-          <motion.div 
-            animate={{ y: [0, 20, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -bottom-6 -left-6 glass p-6 rounded-2xl shadow-xl z-20"
-          >
-             <div className="flex items-center gap-4">
-                <div className="flex -space-x-3">
-                  {[1,2,3].map(i => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-background bg-muted overflow-hidden">
-                       <img src={`https://i.pravatar.cc/100?u=${i}`} alt="user" />
-                    </div>
-                  ))}
+             <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-secondary flex items-center justify-center text-white shadow-lg shadow-secondary/20">
+                  <BookOpen size={24} />
                 </div>
                 <div>
-                  <p className="text-sm font-bold">Live Group Study</p>
-                  <p className="text-xs text-secondary font-bold">12 Active Now</p>
+                  <p className="text-[10px] font-black text-secondary uppercase tracking-[0.2em]">Wort des Tages</p>
+                  <p className="text-xl font-black">Fernweh</p>
+                </div>
+             </div>
+             <p className="text-sm text-muted-foreground italic font-medium leading-relaxed">
+               "A longing for far-off places; wanderlust."
+             </p>
+          </motion.div>
+
+          {/* Floating Element: Achievements */}
+          <motion.div 
+            animate={{ y: [0, 20, 0] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute -bottom-10 -right-10 glass p-8 rounded-[2rem] shadow-2xl z-20 border-accent/20"
+          >
+             <div className="flex items-center gap-5">
+                <div className="w-14 h-14 rounded-2xl bg-accent/20 flex items-center justify-center text-accent">
+                   <div className="w-8 h-8 rounded-full border-4 border-accent animate-spin" style={{ borderTopColor: 'transparent' }} />
+                </div>
+                <div>
+                  <p className="text-sm font-black uppercase tracking-widest">Level Progress</p>
+                  <div className="mt-2 w-32 h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div className="w-3/4 h-full bg-accent" />
+                  </div>
+                  <p className="text-xs font-bold text-accent mt-2">75% to A2 Mastery</p>
                 </div>
              </div>
           </motion.div>

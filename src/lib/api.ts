@@ -33,6 +33,10 @@ export async function fetchLessonById(id: string) {
   return apiFetch(`/api/lessons/${id}`);
 }
 
+export async function fetchLessonsByLevel(level: string) {
+  return apiFetch(`/api/lessons/level/${level}`);
+}
+
 export async function fetchVocabulary() {
   return apiFetch('/api/vocabulary');
 }

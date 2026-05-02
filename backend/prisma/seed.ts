@@ -53,14 +53,37 @@ async function main() {
   });
 
   // Create Quizzes
-  await prisma.quiz.create({
-    data: {
-      question: "How do you say 'Hello' in German?",
-      options: ["Hallo", "Guten Tag", "Moin", "Servus"],
-      correctAnswer: "Hallo",
-      context: "'Hallo' is the most common way to say hello in German.",
-      lessonId: lesson1.id,
-    },
+  await prisma.quiz.createMany({
+    data: [
+      {
+        question: "How do you say 'Hello' in German?",
+        options: ["Hallo", "Guten Tag", "Moin", "Servus"],
+        correctAnswer: "Hallo",
+        context: "'Hallo' is the most common way to say hello in German.",
+        lessonId: lesson1.id,
+      },
+      {
+        question: "What is the German word for 'The' (Masculine)?",
+        options: ["Die", "Der", "Das", "Den"],
+        correctAnswer: "Der",
+        context: "German has three genders: Der (masculine), Die (feminine), and Das (neuter).",
+        lessonId: lesson1.id,
+      },
+      {
+        question: "Which of these means 'I eat'?",
+        options: ["Ich trinke", "Ich esse", "Ich schlafe", "Ich gehe"],
+        correctAnswer: "Ich esse",
+        context: "'Essen' means to eat, while 'trinken' means to drink.",
+        lessonId: lesson1.id,
+      },
+      {
+        question: "Translate: 'Thank you very much'",
+        options: ["Bitte sehr", "Danke schön", "Gern geschehen", "Auf Wiedersehen"],
+        correctAnswer: "Danke schön",
+        context: "'Danke' means thanks, and 'schön' adds emphasis like 'very much'.",
+        lessonId: lesson1.id,
+      }
+    ],
   });
 
   console.log('Seeding complete!');
